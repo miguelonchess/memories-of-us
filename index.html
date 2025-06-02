@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Recuerdos de Nosotros</title>
+<style>
+  body {
+    background: #111;
+    color: #eee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  #countdown-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: url('tu-foto-difuminada.jpg') no-repeat center center/cover;
+    text-align: center;
+  }
+  #days-passed {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  #countdown {
+    font-size: 5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  #message {
+    font-size: 1.2rem;
+    opacity: 0.8;
+  }
+
+  #gallery {
+    display: none;
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  #gallery h2 {
+    margin-bottom: 1rem;
+  }
+  .photos {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .photos img {
+    max-width: 150px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #222;
+  }
+  video {
+    margin-top: 20px;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #444;
+  }
+</style>
+</head>
+<body>
+
+<div id="countdown-container">
+  <div id="days-passed"></div>
+  <div id="countdown">10</div>
+  <div id="message">Volviendo a ese momento...</div>
+</div>
+
+<div id="gallery">
+  <h2>Preparé este video para ti ❤️</h2>
+  <video controls autoplay loop>
+    <source src="tu-video.mp4" type="video/mp4" />
+    Tu navegador no soporta la reproducción de video.
+  </video>
+</div>
+
+<script>
+// Fecha del primer encuentro (Año, Mes - 1, Día)
+const firstDate = new Date(2023, 8, 30);
+
+// Calcula los días pasados desde la fecha
+function calculateDaysPassed() {
+  const now = new Date();
+  const diff = now - firstDate;
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  return days;
+}
+
+document.getElementById('days-passed').textContent = 
+  `Han pasado ${calculateDaysPassed()} días desde que nos vimos por primera vez.`;
+
+// Cuenta regresiva de 10 segundos
+let countdownValue = 10;
+const countdownEl = document.getElementById('countdown');
+
+const countdownInterval = setInterval(() => {
+  countdownEl.textContent = countdownValue;
+  countdownValue--;
+
+  if (countdownValue < 0) {
+    clearInterval(countdownInterval);
+    // Cambia a galería
+    document.getElementById('countdown-container').style.display = 'none';
+    document.getElementById('gallery').style.display = 'block';
+  }
+}, 1000);
+</script>
+
+</body>
+</html>
